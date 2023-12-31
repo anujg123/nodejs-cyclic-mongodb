@@ -1,4 +1,3 @@
-//jshint esversion:6
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -53,6 +52,8 @@ mongoConnection()
     
     const defaultItems = [item1, item2, item3];
 
+  
+
     const listSchema = {
       name:String,
       items:[itemsSchema]
@@ -77,6 +78,9 @@ mongoConnection()
      
     });
 
+ 
+    
+
     app.get("/:customListName", async (req, res) =>{
       const customListName = _.capitalize (req.params.customListName);
     
@@ -86,6 +90,7 @@ mongoConnection()
           const list = new List({
             name: customListName,
             items: defaultItems,
+            user:userId,
           });
           await list.save();
           res.redirect("/" + customListName )
